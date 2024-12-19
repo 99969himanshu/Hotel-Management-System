@@ -1,0 +1,91 @@
+import java.util.Scanner;
+
+class Hotel {
+    private String hotelName;
+    private int availableRooms;
+    private double roomPrice;
+
+    public Hotel(String hotelName, int availableRooms, double roomPrice) {
+        this.hotelName = hotelName;
+        this.availableRooms = availableRooms;
+        this.roomPrice = roomPrice;
+    }
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public int getAvailableRooms() {
+        return availableRooms;
+    }
+
+    public double getRoomPrice() {
+        return roomPrice;
+    }
+
+    public void bookRoom(int rooms) {
+        if (rooms <= availableRooms) {
+            availableRooms -= rooms;
+            System.out.println("Booking successful! You have booked " + rooms + " room(s).");
+        } else {
+            System.out.println("Sorry, not enough rooms available.");
+        }
+    }
+
+    public void displayHotelInfo() {
+        System.out.println("Hotel Name: " + hotelName);
+        System.out.println("Available Rooms: " + availableRooms);
+        System.out.println("Room Price: $" + roomPrice + " per night");
+    }
+
+    public void checkOut(int rooms) {
+        availableRooms += rooms;
+        System.out.println("Checked out successfully! " + rooms + " room(s) are now available.");
+    }
+}
+
+public class HotelManagementSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Create a hotel object
+        Hotel hotel = new Hotel("Ocean View Resort", 10, 150.0);
+
+        while (true) {
+            System.out.println("\nWelcome to " + hotel.getHotelName());
+            System.out.println("1. View hotel details");
+            System.out.println("2. Book a room");
+            System.out.println("3. Check out");
+            System.out.println("4. Exit");
+
+            System.out.print("Please choose an option (1-4): ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    hotel.displayHotelInfo();
+                    break;
+
+                case 2:
+                    System.out.print("Enter number of rooms to book: ");
+                    int roomsToBook = scanner.nextInt();
+                    hotel.bookRoom(roomsToBook);
+                    break;
+
+                case 3:
+                    System.out.print("Enter number of rooms to check out: ");
+                    int roomsToCheckOut = scanner.nextInt();
+                    hotel.checkOut(roomsToCheckOut);
+                    break;
+
+                case 4:
+                    System.out.println("Thank you for using the hotel management system.");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Please choose again.");
+            }
+        }
+    }
+}
